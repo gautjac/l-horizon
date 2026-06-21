@@ -1,0 +1,83 @@
+name: L-Horizon
+options:
+  bundleIdPrefix: app.atelier
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: fr
+
+# Bilingual FR + EN. fr is the development/fallback language (Jac is FR-first).
+knownRegions:
+  - fr
+  - en
+  - Base
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "9WZ66DZ69J"
+    CODE_SIGN_STYLE: Automatic
+    GENERATE_INFOPLIST_FILE: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+targets:
+  L-Horizon:
+    type: application
+    # Native macOS app only — a windowed, regular Mac app (AppKit-backed
+    # SwiftUI, NOT Mac Catalyst). The signature five-lane horizon board wants a
+    # wide desk-class window, so this is macOS, not iOS.
+    platform: macOS
+    deploymentTarget:
+      macOS: "14.0"
+    sources:
+      - path: Sources
+    info:
+      path: Sources/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: L'Horizon
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        CFBundleLocalizations:
+          - fr
+          - en
+        LSApplicationCategoryType: public.app-category.productivity
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.atelier.lhorizon
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_PREVIEWS: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        # App Sandbox + outbound network (for the Anthropic API) + user-selected
+        # file read (future import). Scoped to the macOS SDK.
+        CODE_SIGN_ENTITLEMENTS: Sources/Resources/macOS.entitlements
+        SUPPORTS_MACCATALYST: NO
+
+  L-HorizonTests:
+    type: bundle.unit-test
+    # Pure logic tests: horizon/date math, cascade ordering, re-flow planning.
+    # macOS so they run on the Mac with no simulator boot.
+    platform: macOS
+    deploymentTarget:
+      macOS: "14.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: L-Horizon
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.atelier.lhorizon.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/L-Horizon.app/Contents/MacOS/L-Horizon"
+
+schemes:
+  L-Horizon:
+    build:
+      targets:
+        L-Horizon: all
+        L-HorizonTests: [test]
+    test:
+      targets:
+        - L-HorizonTests

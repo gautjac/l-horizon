@@ -1,0 +1,552 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00A4D4BC6DD98E5B54111500 /* OpusClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF4B5C4224FDB9DA74111 /* OpusClient.swift */; };
+		068A7A41A0F3D56F6902CBEA /* Editors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09163A7998157ADA454FBECF /* Editors.swift */; };
+		14A6B677ED466116B78F5B23 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260556D098ABDE8E266EB7FC /* EmptyStateView.swift */; };
+		2630D2B025827239A449983F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF32DE1A3F78C8623BF8262 /* Theme.swift */; };
+		26DAC61A8F34AD82E17E3585 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6295F44D3E6514AC132057B /* Models.swift */; };
+		3B9530BE31A6CDE569C0D64D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E10F364F9A26FDC9E731A848 /* InfoPlist.strings */; };
+		44D319635010C6337A8F70ED /* Loc.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C2EF78D8AE77D5F4960E8 /* Loc.swift */; };
+		4B9C3CE8CA00BD27B7CB6E0C /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B53542A772183C9160941 /* ReviewView.swift */; };
+		4E615F8D4EA5B07B91D33C61 /* Reflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5D101E49646F42969E97E /* Reflow.swift */; };
+		72CEC94C1B391E1EE400DC0D /* HorizonAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88917FA69320D4D4CDE4744 /* HorizonAI.swift */; };
+		7B3509984C7A812C47F55D8F /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F89B6F5D6248D1C0D02B54E /* GoalDetailView.swift */; };
+		7EE427E4E77308765B948686 /* HorizonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3459AC9CB5C4F42BA0164201 /* HorizonTests.swift */; };
+		A60E2846630AAB2277A51592 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D294B6A12CDF5A1DA6CE83 /* RootView.swift */; };
+		A7F47ADF2E2213B98EFBA418 /* LHorizonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141D5925D47FE08E164BC56 /* LHorizonApp.swift */; };
+		C58707831A4D7BC68D580359 /* HorizonBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBFFAE4373DDFC942D3B382 /* HorizonBoardView.swift */; };
+		CF0B4D30CAA12EB8A654C401 /* BreakdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A36C775A62325A44B32D90 /* BreakdownView.swift */; };
+		DA2AF859D315355352060B03 /* Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE29F0CD8F6807E0B64F3CA /* Seed.swift */; };
+		E0A3DBF3A743C7F81892480C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4CB90C3A841A9EAF987803A /* Assets.xcassets */; };
+		F6EC2FE798C9E285C1E7BF60 /* Horizon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342E8A59D05B9424A961E44B /* Horizon.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32B6B3659B066F5C3342390E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8D6E9C3717CA11E41D6BF46 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C54A5B31B017BDFD430D2AB;
+			remoteInfo = "L-Horizon";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		09163A7998157ADA454FBECF /* Editors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editors.swift; sourceTree = "<group>"; };
+		0F89B6F5D6248D1C0D02B54E /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
+		17D294B6A12CDF5A1DA6CE83 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		17EABA419D6F2CA778A91F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1FACF4B5C4224FDB9DA74111 /* OpusClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpusClient.swift; sourceTree = "<group>"; };
+		1FAE0F50F040380C1B3F8E2E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		260556D098ABDE8E266EB7FC /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		342E8A59D05B9424A961E44B /* Horizon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon.swift; sourceTree = "<group>"; };
+		3459AC9CB5C4F42BA0164201 /* HorizonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonTests.swift; sourceTree = "<group>"; };
+		4AE29F0CD8F6807E0B64F3CA /* Seed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seed.swift; sourceTree = "<group>"; };
+		89A36C775A62325A44B32D90 /* BreakdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownView.swift; sourceTree = "<group>"; };
+		9141D5925D47FE08E164BC56 /* LHorizonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LHorizonApp.swift; sourceTree = "<group>"; };
+		9DBFFAE4373DDFC942D3B382 /* HorizonBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonBoardView.swift; sourceTree = "<group>"; };
+		A4CB90C3A841A9EAF987803A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A72B53542A772183C9160941 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		AAB06FF1B8A625DA2F4BDF94 /* L-Horizon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L-Horizon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D88917FA69320D4D4CDE4744 /* HorizonAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonAI.swift; sourceTree = "<group>"; };
+		E02C2EF78D8AE77D5F4960E8 /* Loc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loc.swift; sourceTree = "<group>"; };
+		E2D5D101E49646F42969E97E /* Reflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reflow.swift; sourceTree = "<group>"; };
+		F32F93901F70B15378D2D5B4 /* L-HorizonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "L-HorizonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6295F44D3E6514AC132057B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F8AD3228A3DBD66EB4703560 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FBCE99C511E5C7D852AEE67C /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		FEF32DE1A3F78C8623BF8262 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0B973C5ACCA2DB9E0F556932 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAB06FF1B8A625DA2F4BDF94 /* L-Horizon.app */,
+				F32F93901F70B15378D2D5B4 /* L-HorizonTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		332F79D84B2E75C60571C6E8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				9141D5925D47FE08E164BC56 /* LHorizonApp.swift */,
+				A44D444EDEBB04F717EC9C81 /* AI */,
+				90DC151F5B899E22858AB6C2 /* Design */,
+				C6CD4A9A98E90CC0EB5E7765 /* Engine */,
+				67C2FB77C0F70C628E4C5521 /* Models */,
+				FB0CC1CABA6309D0F44F30E1 /* Resources */,
+				656D03A750A3D9E000CDAFD2 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		3966222058AB1E4A6385C296 = {
+			isa = PBXGroup;
+			children = (
+				332F79D84B2E75C60571C6E8 /* Sources */,
+				A5271AF825C1D609872DA42B /* Tests */,
+				0B973C5ACCA2DB9E0F556932 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		656D03A750A3D9E000CDAFD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89A36C775A62325A44B32D90 /* BreakdownView.swift */,
+				09163A7998157ADA454FBECF /* Editors.swift */,
+				260556D098ABDE8E266EB7FC /* EmptyStateView.swift */,
+				0F89B6F5D6248D1C0D02B54E /* GoalDetailView.swift */,
+				9DBFFAE4373DDFC942D3B382 /* HorizonBoardView.swift */,
+				A72B53542A772183C9160941 /* ReviewView.swift */,
+				17D294B6A12CDF5A1DA6CE83 /* RootView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		67C2FB77C0F70C628E4C5521 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E02C2EF78D8AE77D5F4960E8 /* Loc.swift */,
+				F6295F44D3E6514AC132057B /* Models.swift */,
+				4AE29F0CD8F6807E0B64F3CA /* Seed.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		90DC151F5B899E22858AB6C2 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				FEF32DE1A3F78C8623BF8262 /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		A44D444EDEBB04F717EC9C81 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				D88917FA69320D4D4CDE4744 /* HorizonAI.swift */,
+				1FACF4B5C4224FDB9DA74111 /* OpusClient.swift */,
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		A5271AF825C1D609872DA42B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3459AC9CB5C4F42BA0164201 /* HorizonTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C6CD4A9A98E90CC0EB5E7765 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				342E8A59D05B9424A961E44B /* Horizon.swift */,
+				E2D5D101E49646F42969E97E /* Reflow.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		FB0CC1CABA6309D0F44F30E1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A4CB90C3A841A9EAF987803A /* Assets.xcassets */,
+				17EABA419D6F2CA778A91F39 /* Info.plist */,
+				FBCE99C511E5C7D852AEE67C /* macOS.entitlements */,
+				E10F364F9A26FDC9E731A848 /* InfoPlist.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C54A5B31B017BDFD430D2AB /* L-Horizon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4F0C89C8E3A4D4705D65239 /* Build configuration list for PBXNativeTarget "L-Horizon" */;
+			buildPhases = (
+				6D63D0D5E39B0E4BDF1F0AEA /* Sources */,
+				35761639B969EEB5FED337B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "L-Horizon";
+			packageProductDependencies = (
+			);
+			productName = "L-Horizon";
+			productReference = AAB06FF1B8A625DA2F4BDF94 /* L-Horizon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		56524ED92581C9601372836A /* L-HorizonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDC2C1824CFE63C83B776ABB /* Build configuration list for PBXNativeTarget "L-HorizonTests" */;
+			buildPhases = (
+				2179E383C50B593B28891201 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5873D4FA502AD4C9C8544DB6 /* PBXTargetDependency */,
+			);
+			name = "L-HorizonTests";
+			packageProductDependencies = (
+			);
+			productName = "L-HorizonTests";
+			productReference = F32F93901F70B15378D2D5B4 /* L-HorizonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8D6E9C3717CA11E41D6BF46 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2C54A5B31B017BDFD430D2AB = {
+						DevelopmentTeam = 9WZ66DZ69J;
+						ProvisioningStyle = Automatic;
+					};
+					56524ED92581C9601372836A = {
+						DevelopmentTeam = 9WZ66DZ69J;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2DD9F0E9E8D61E5D57265424 /* Build configuration list for PBXProject "L-Horizon" */;
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				fr,
+			);
+			mainGroup = 3966222058AB1E4A6385C296;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0B973C5ACCA2DB9E0F556932 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C54A5B31B017BDFD430D2AB /* L-Horizon */,
+				56524ED92581C9601372836A /* L-HorizonTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35761639B969EEB5FED337B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0A3DBF3A743C7F81892480C /* Assets.xcassets in Resources */,
+				3B9530BE31A6CDE569C0D64D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2179E383C50B593B28891201 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EE427E4E77308765B948686 /* HorizonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D63D0D5E39B0E4BDF1F0AEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF0B4D30CAA12EB8A654C401 /* BreakdownView.swift in Sources */,
+				068A7A41A0F3D56F6902CBEA /* Editors.swift in Sources */,
+				14A6B677ED466116B78F5B23 /* EmptyStateView.swift in Sources */,
+				7B3509984C7A812C47F55D8F /* GoalDetailView.swift in Sources */,
+				F6EC2FE798C9E285C1E7BF60 /* Horizon.swift in Sources */,
+				72CEC94C1B391E1EE400DC0D /* HorizonAI.swift in Sources */,
+				C58707831A4D7BC68D580359 /* HorizonBoardView.swift in Sources */,
+				A7F47ADF2E2213B98EFBA418 /* LHorizonApp.swift in Sources */,
+				44D319635010C6337A8F70ED /* Loc.swift in Sources */,
+				26DAC61A8F34AD82E17E3585 /* Models.swift in Sources */,
+				00A4D4BC6DD98E5B54111500 /* OpusClient.swift in Sources */,
+				4E615F8D4EA5B07B91D33C61 /* Reflow.swift in Sources */,
+				4B9C3CE8CA00BD27B7CB6E0C /* ReviewView.swift in Sources */,
+				A60E2846630AAB2277A51592 /* RootView.swift in Sources */,
+				DA2AF859D315355352060B03 /* Seed.swift in Sources */,
+				2630D2B025827239A449983F /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5873D4FA502AD4C9C8544DB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C54A5B31B017BDFD430D2AB /* L-Horizon */;
+			targetProxy = 32B6B3659B066F5C3342390E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E10F364F9A26FDC9E731A848 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8AD3228A3DBD66EB4703560 /* en */,
+				1FAE0F50F040380C1B3F8E2E /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77946EA092DD0675CC3DC08C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/Resources/macOS.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.atelier.lhorizon;
+				SDKROOT = macosx;
+				SUPPORTS_MACCATALYST = NO;
+			};
+			name = Debug;
+		};
+		7DB205699961A07E4C4BA3B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9WZ66DZ69J;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		A924E6ED1368C960C9F01419 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/Resources/macOS.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.atelier.lhorizon;
+				SDKROOT = macosx;
+				SUPPORTS_MACCATALYST = NO;
+			};
+			name = Release;
+		};
+		ACC77B1084E8D7D5112BE5CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9WZ66DZ69J;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		B0ED459D9BAA00FA014CFF2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.atelier.lhorizon.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/L-Horizon.app/Contents/MacOS/L-Horizon";
+			};
+			name = Release;
+		};
+		C456D14EA765D315F5ABC492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.atelier.lhorizon.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/L-Horizon.app/Contents/MacOS/L-Horizon";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DD9F0E9E8D61E5D57265424 /* Build configuration list for PBXProject "L-Horizon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACC77B1084E8D7D5112BE5CE /* Debug */,
+				7DB205699961A07E4C4BA3B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B4F0C89C8E3A4D4705D65239 /* Build configuration list for PBXNativeTarget "L-Horizon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77946EA092DD0675CC3DC08C /* Debug */,
+				A924E6ED1368C960C9F01419 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EDC2C1824CFE63C83B776ABB /* Build configuration list for PBXNativeTarget "L-HorizonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C456D14EA765D315F5ABC492 /* Debug */,
+				B0ED459D9BAA00FA014CFF2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8D6E9C3717CA11E41D6BF46 /* Project object */;
+}
