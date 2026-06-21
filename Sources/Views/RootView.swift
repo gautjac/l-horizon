@@ -3,20 +3,22 @@ import SwiftData
 
 /// Which workspace tab is showing for the selected intention.
 enum Workspace: String, CaseIterable, Identifiable {
-    case board, detail, review
+    case board, calendar, detail, review
     var id: String { rawValue }
     func label(_ lang: Lang) -> String {
         switch self {
-        case .board:  return lang == .fr ? "Horizons" : "Horizons"
-        case .detail: return lang == .fr ? "Détail"   : "Detail"
-        case .review: return lang == .fr ? "Revue"    : "Review"
+        case .board:    return lang == .fr ? "Horizons"   : "Horizons"
+        case .calendar: return lang == .fr ? "Calendrier" : "Calendar"
+        case .detail:   return lang == .fr ? "Détail"     : "Detail"
+        case .review:   return lang == .fr ? "Revue"      : "Review"
         }
     }
     var icon: String {
         switch self {
-        case .board:  return "chart.bar.doc.horizontal"
-        case .detail: return "list.bullet.indent"
-        case .review: return "checkmark.seal"
+        case .board:    return "chart.bar.doc.horizontal"
+        case .calendar: return "calendar"
+        case .detail:   return "list.bullet.indent"
+        case .review:   return "checkmark.seal"
         }
     }
 }
@@ -102,9 +104,10 @@ struct RootView: View {
                 .padding(.top, 14)
                 .padding(.bottom, 4)
             switch workspace {
-            case .board:  HorizonBoardView(intention: intention)
-            case .detail: GoalDetailView(intention: intention)
-            case .review: ReviewView(intention: intention)
+            case .board:    HorizonBoardView(intention: intention)
+            case .calendar: CalendarWorkspaceView(intention: intention)
+            case .detail:   GoalDetailView(intention: intention)
+            case .review:   ReviewView(intention: intention)
             }
         }
     }

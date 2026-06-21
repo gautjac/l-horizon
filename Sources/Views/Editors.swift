@@ -11,6 +11,8 @@ struct MilestoneEditor: View {
     var milestone: Milestone?
     var intention: Intention?
     var horizon: Horizon = .threeMonths
+    /// When creating from the calendar, pre-fill (and enable) the target date.
+    var presetDate: Date?
 
     @State private var title = ""
     @State private var dod = ""
@@ -73,6 +75,7 @@ struct MilestoneEditor: View {
             if let tgt = m.targetDate { hasTarget = true; target = tgt }
         } else {
             horizonSel = horizon
+            if let preset = presetDate { hasTarget = true; target = preset }
         }
     }
 
