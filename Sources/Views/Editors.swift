@@ -96,46 +96,111 @@ struct MilestoneEditor: View {
         m.status = statusSel
         m.targetDate = hasTarget ? target : nil
         try? context.save()
+        if let owner = m.intention, owner.calendarSyncEnabled {
+            Task { try? await CalendarSync.shared.sync(intention: owner, context: context, lang: loc.lang) }
+        }
         dismiss()
     }
 
     private func remove() {
-        if let m = milestone { context.delete(m); try? context.save() }
+        if let m = milestone {
+            let owner = m.intention
+            let eventID = m.calendarEventID
+            context.delete(m)
+            try? context.save()
+            if let owner, owner.calendarSyncEnabled {
+                Task { await CalendarSync.shared.removeEvent(id: eventID) }
+            }
+        }
         dismiss()
     }
 }
 
-/// Edit an existing intention's title / detail / anchor / summit horizon.
+/// Edit an existing intention's title / detail / anchor / summit horizon, plus
+/// its review cadence and Calendar sync.
 struct IntentionEditor: View {
     @EnvironmentObject var loc: LocManager
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Bindable var intention: Intention
 
+    @State private var syncMessage: String?
+    @State private var syncing = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(loc.t("Modifier l'intention", "Edit intention"))
                 .font(Theme.display(20)).padding(.bottom, 12)
             Form {
-                TextField(loc.t("Titre", "Title"), text: $intention.title)
-                TextField(loc.t("Le pourquoi / contexte", "The why / context"),
-                          text: $intention.detail, axis: .vertical).lineLimit(2...5)
-                DatePicker(loc.t("Ancrage", "Anchor"), selection: $intention.anchorDate,
-                           displayedComponents: .date)
-                Picker(loc.t("Horizon sommet", "Summit horizon"), selection: Binding(
-                    get: { intention.topHorizon }, set: { intention.topHorizon = $0 })) {
-                    ForEach(Horizon.cascade) { h in Text(h.label(loc.lang)).tag(h) }
+                Section {
+                    TextField(loc.t("Titre", "Title"), text: $intention.title)
+                    TextField(loc.t("Le pourquoi / contexte", "The why / context"),
+                              text: $intention.detail, axis: .vertical).lineLimit(2...5)
+                    DatePicker(loc.t("Ancrage", "Anchor"), selection: $intention.anchorDate,
+                               displayedComponents: .date)
+                    Picker(loc.t("Horizon sommet", "Summit horizon"), selection: Binding(
+                        get: { intention.topHorizon }, set: { intention.topHorizon = $0 })) {
+                        ForEach(Horizon.cascade) { h in Text(h.label(loc.lang)).tag(h) }
+                    }
+                }
+                Section(loc.t("Rythme de revue", "Review rhythm")) {
+                    Picker(loc.t("Cadence", "Cadence"), selection: Binding(
+                        get: { intention.reviewCadence }, set: { intention.reviewCadence = $0 })) {
+                        ForEach(ReviewCadence.allCases) { c in Text(c.label(loc.lang)).tag(c) }
+                    }
+                }
+                Section(loc.t("Calendrier système", "System Calendar")) {
+                    Toggle(loc.t("Synchroniser les dates cibles", "Sync target dates"),
+                           isOn: $intention.calendarSyncEnabled)
+                    if intention.calendarSyncEnabled {
+                        Button {
+                            Task { await runSync() }
+                        } label: {
+                            Label(syncing ? loc.t("Synchronisation…", "Syncing…")
+                                          : loc.t("Synchroniser maintenant", "Sync now"),
+                                  systemImage: "arrow.triangle.2.circlepath")
+                        }
+                        .disabled(syncing)
+                    }
+                    if let syncMessage {
+                        Text(syncMessage).font(Theme.body(11)).foregroundStyle(.secondary)
+                    }
                 }
             }
-            .formStyle(.grouped).frame(height: 240)
+            .formStyle(.grouped).frame(height: 420)
             HStack {
                 Spacer()
-                Button(loc.t("Terminé", "Done")) { try? context.save(); dismiss() }
+                Button(loc.t("Terminé", "Done")) { finish() }
                     .buttonStyle(.borderedProminent).tint(Theme.dawn)
             }
             .padding(.top, 10)
         }
-        .padding(22).frame(width: 460)
+        .padding(22).frame(width: 480)
+        .onChange(of: intention.calendarSyncEnabled) { _, enabled in
+            Task {
+                if enabled { await runSync() }
+                else { await CalendarSync.shared.removeAll(for: intention, context: context)
+                       syncMessage = loc.t("Événements retirés.", "Events removed.") }
+            }
+        }
+    }
+
+    private func runSync() async {
+        syncing = true; syncMessage = nil
+        do {
+            let n = try await CalendarSync.shared.sync(intention: intention, context: context, lang: loc.lang)
+            syncMessage = loc.t("\(n) jalon(s) synchronisé(s).", "\(n) milestone(s) synced.")
+        } catch {
+            syncMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+        }
+        syncing = false
+    }
+
+    private func finish() {
+        try? context.save()
+        let all = (try? context.fetch(FetchDescriptor<Intention>())) ?? []
+        Task { await NotificationManager.shared.rescheduleReviewReminders(all, lang: loc.lang) }
+        dismiss()
     }
 }
 
@@ -150,6 +215,9 @@ struct NewIntentionView: View {
     @State private var title = ""
     @State private var detail = ""
     @State private var topHorizon: Horizon = .fiveYears
+    @State private var templateID: String?      // nil = blank
+
+    private var template: IntentionTemplate? { templateID.flatMap(Templates.byID) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -161,15 +229,28 @@ struct NewIntentionView: View {
             }
             .padding(.bottom, 14)
             Form {
+                Picker(loc.t("Modèle", "Template"), selection: $templateID) {
+                    Text(loc.t("Vierge", "Blank")).tag(String?.none)
+                    ForEach(Templates.all) { t in Text(t.title(loc.lang)).tag(String?.some(t.id)) }
+                }
                 TextField(loc.t("Intention (ex. réaliser un film)", "Intention (e.g. direct a film)"),
                           text: $title, axis: .vertical).lineLimit(1...3)
                 TextField(loc.t("Le pourquoi / contexte (optionnel)", "The why / context (optional)"),
                           text: $detail, axis: .vertical).lineLimit(2...5)
-                Picker(loc.t("Horizon sommet", "Summit horizon"), selection: $topHorizon) {
-                    ForEach(Horizon.cascade) { h in Text(h.label(loc.lang)).tag(h) }
+                if let template {
+                    LabeledContent(loc.t("Horizon sommet", "Summit horizon"),
+                                   value: template.topHorizon.label(loc.lang))
+                    Label(loc.t("Inclut \(template.milestoneCount) jalons de départ",
+                                "Includes \(template.milestoneCount) starter milestones"),
+                          systemImage: "square.stack.3d.up")
+                        .font(Theme.body(11)).foregroundStyle(.secondary)
+                } else {
+                    Picker(loc.t("Horizon sommet", "Summit horizon"), selection: $topHorizon) {
+                        ForEach(Horizon.cascade) { h in Text(h.label(loc.lang)).tag(h) }
+                    }
                 }
             }
-            .formStyle(.grouped).frame(height: 260)
+            .formStyle(.grouped).frame(height: 320)
             HStack {
                 Spacer()
                 Button(loc.t("Annuler", "Cancel")) { dismiss() }
@@ -180,13 +261,30 @@ struct NewIntentionView: View {
             .padding(.top, 10)
         }
         .padding(24).frame(width: 500)
+        .onChange(of: templateID) { _, _ in applyTemplate() }
+    }
+
+    /// Pre-fill the fields from the chosen template (blank leaves them as typed).
+    private func applyTemplate() {
+        guard let template else { return }
+        title = template.title(loc.lang)
+        detail = template.detail(loc.lang)
+        topHorizon = template.topHorizon
     }
 
     private func create() {
-        let intention = Intention(title: title.trimmingCharacters(in: .whitespaces),
-                                  detail: detail, topHorizon: topHorizon,
-                                  sortIndex: (existing.map(\.sortIndex).max() ?? -1) + 1)
-        context.insert(intention)
+        let sortIndex = (existing.map(\.sortIndex).max() ?? -1) + 1
+        let cleanTitle = title.trimmingCharacters(in: .whitespaces)
+        let intention: Intention
+        if let template {
+            intention = Templates.instantiate(template, into: context,
+                                              title: cleanTitle, detail: detail,
+                                              lang: loc.lang, sortIndex: sortIndex)
+        } else {
+            intention = Intention(title: cleanTitle, detail: detail,
+                                  topHorizon: topHorizon, sortIndex: sortIndex)
+            context.insert(intention)
+        }
         try? context.save()
         onCreate(intention.id)
         dismiss()

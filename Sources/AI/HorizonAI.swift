@@ -164,4 +164,44 @@ enum HorizonAI {
         }
         return (summary, suggestions)
     }
+
+    // MARK: Weekly check-in.
+
+    /// A reflective weekly check-in: a warm 2–3 sentence read on progress and
+    /// risk, plus a few concrete focus actions for the coming week. Distinct from
+    /// the re-flow (which reshuffles horizons); this is narrative + next steps.
+    static func checkIn(intentionTitle: String, snapshot: String,
+                        lang: Lang) async throws -> (summary: String, focus: [String]) {
+        let system = lang == .fr
+            ? """
+              Tu fais le bilan hebdomadaire d'une intention à long terme. On te donne l'état \
+              courant des jalons (statut et progrès). Écris un court bilan chaleureux de 2 à 3 \
+              phrases : ce qui a avancé, ce qui est à risque. Puis propose de 2 à 4 actions \
+              concrètes et réalistes pour la semaine qui vient. En français québécois.
+              """
+            : """
+              You run a weekly check-in on a long-term intention. You are given the current state \
+              of its milestones (status and progress). Write a warm 2–3 sentence read: what moved, \
+              what's at risk. Then propose 2–4 concrete, realistic focus actions for the coming \
+              week. Warm, clear prose.
+              """
+
+        let tool = OpusClient.Tool(
+            name: "weekly_checkin",
+            description: "Return a short check-in summary and this week's focus actions.",
+            inputSchema: [
+                "type": "object",
+                "properties": [
+                    "summary": ["type": "string"],
+                    "focus": ["type": "array", "items": ["type": "string"]],
+                ],
+                "required": ["summary", "focus"],
+            ])
+
+        let user = "Intention : \(intentionTitle)\n\n\(snapshot)"
+        let result = try await OpusClient.runTool(system: system, userText: user, tool: tool)
+        let summary = result["summary"] as? String ?? ""
+        let focus = (result["focus"] as? [String]) ?? []
+        return (summary, focus)
+    }
 }

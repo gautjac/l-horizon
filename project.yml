@@ -44,6 +44,7 @@ targets:
           - en
         LSApplicationCategoryType: public.app-category.productivity
         ITSAppUsesNonExemptEncryption: false
+        NSCalendarsFullAccessUsageDescription: "L'Horizon ajoute vos jalons datés à un calendrier « L'Horizon » dédié."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: app.atelier.lhorizon

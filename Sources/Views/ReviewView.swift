@@ -13,6 +13,7 @@ struct ReviewView: View {
     @State private var changes: [ReflowChange] = []
     @State private var aiSummary = ""
     @State private var aiSuggestions: [ReflowSuggestion] = []
+    @State private var focusPoints: [String] = []
     @State private var loading = false
     @State private var error: String?
     @State private var committed = false
@@ -29,6 +30,7 @@ struct ReviewView: View {
             .padding(.horizontal, 24).padding(.vertical, 14)
             .frame(maxWidth: 880).frame(maxWidth: .infinity)
         }
+        .onAppear { cadence = intention.reviewCadence }
     }
 
     private var header: some View {
@@ -94,6 +96,11 @@ struct ReviewView: View {
                         .font(Theme.body(12))
                 }
                 .buttonStyle(.bordered).tint(Theme.dawnSoft)
+                Button { Task { await runCheckIn() } } label: {
+                    Label(loc.t("Bilan IA", "AI check-in"), systemImage: "text.badge.checkmark")
+                        .font(Theme.body(12))
+                }
+                .buttonStyle(.bordered).tint(Theme.dawnSoft).disabled(!hasKey || loading)
                 Button { Task { await runAI() } } label: {
                     Label(loc.t("Re-flow IA", "AI re-flow"), systemImage: "sparkles").font(Theme.body(12))
                 }
@@ -116,9 +123,22 @@ struct ReviewView: View {
                 Text(aiSummary).font(Theme.displayLight(14)).italic().foregroundStyle(Theme.dawnSoft)
                     .padding(.vertical, 4)
             }
+            if !focusPoints.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(loc.t("Cette semaine", "This week"))
+                        .font(Theme.body(11)).foregroundStyle(.white.opacity(0.55))
+                    ForEach(focusPoints, id: \.self) { p in
+                        HStack(alignment: .top, spacing: 6) {
+                            Image(systemName: "arrow.right").font(.system(size: 9)).foregroundStyle(Theme.dawn)
+                            Text(p).font(Theme.body(12)).foregroundStyle(.white.opacity(0.85))
+                        }
+                    }
+                }
+                .padding(.bottom, 2)
+            }
             ForEach(changes.filter { !$0.isNoOp }) { c in changeRow(c) }
             ForEach(aiSuggestions) { s in suggestionRow(s) }
-            if !changes.isEmpty || !aiSuggestions.isEmpty {
+            if !changes.isEmpty || !aiSuggestions.isEmpty || !aiSummary.isEmpty || !focusPoints.isEmpty {
                 HStack {
                     Spacer()
                     Button { applyAndCommit() } label: {
@@ -240,6 +260,20 @@ struct ReviewView: View {
         loading = false
     }
 
+    /// A narrative weekly check-in (progress + risk + this week's focus actions).
+    private func runCheckIn() async {
+        committed = false
+        loading = true; error = nil
+        do {
+            let r = try await HorizonAI.checkIn(intentionTitle: intention.title,
+                                                snapshot: buildSnapshotText(), lang: loc.lang)
+            aiSummary = r.summary; focusPoints = r.focus
+        } catch {
+            self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+        }
+        loading = false
+    }
+
     private func buildSnapshotText() -> String {
         var lines: [String] = []
         for h in Horizon.cascade {
@@ -270,16 +304,21 @@ struct ReviewView: View {
             }
         }
         let tally = Reflow.tally(changes)
+        let notes = aiSuggestions.map(\.note) + focusPoints
         let log = ReviewLog(date: Date(), cadence: cadence,
                             summary: aiSummary.isEmpty
                                 ? loc.t("Revue \(cadence.label(.fr)) : \(tally.advanced) avancés, \(tally.slipped) glissés, \(tally.moved) déplacés.",
                                         "\(cadence.label(.en)) review: \(tally.advanced) advanced, \(tally.slipped) slipped, \(tally.moved) moved.")
                                 : aiSummary,
                             advancedCount: tally.advanced, slippedCount: tally.slipped,
-                            reflowNote: aiSuggestions.map(\.note).joined(separator: " · "))
+                            reflowNote: notes.joined(separator: " · "))
         log.intention = intention
         context.insert(log)
+        // Persist the chosen cadence and refresh the review reminders.
+        intention.reviewCadence = cadence
         try? context.save()
+        let all = (try? context.fetch(FetchDescriptor<Intention>())) ?? []
+        Task { await NotificationManager.shared.rescheduleReviewReminders(all, lang: loc.lang) }
         committed = true
     }
 }

@@ -34,6 +34,11 @@ final class Intention {
     var topHorizonRaw: Int = Horizon.fiveYears.rawValue
     var createdAt: Date = Date()
     var sortIndex: Int = 0
+    /// How often this intention wants a review ritual — drives the "due" banner
+    /// and the local review reminders.
+    var reviewCadenceRaw: String = ReviewCadence.weekly.rawValue
+    /// When on, milestone target dates are mirrored into the system Calendar.
+    var calendarSyncEnabled: Bool = false
 
     @Relationship(deleteRule: .cascade, inverse: \Milestone.intention)
     var milestones: [Milestone]? = []
@@ -57,6 +62,24 @@ final class Intention {
 
     var allMilestones: [Milestone] { milestones ?? [] }
     var allReviews: [ReviewLog] { (reviews ?? []).sorted { $0.date > $1.date } }
+
+    var reviewCadence: ReviewCadence {
+        get { ReviewCadence(rawValue: reviewCadenceRaw) ?? .weekly }
+        set { reviewCadenceRaw = newValue.rawValue }
+    }
+
+    /// The most recent review, or (never reviewed) the day the intention was made.
+    var lastReviewedAt: Date { allReviews.first?.date ?? createdAt }
+
+    /// When the next review falls due, given the cadence.
+    var nextReviewDue: Date {
+        ReviewSchedule.nextDue(lastReviewed: lastReviewedAt, cadence: reviewCadence)
+    }
+
+    /// Whether a review is due as of `now`.
+    func isReviewDue(now: Date = Date()) -> Bool {
+        ReviewSchedule.isDue(lastReviewed: lastReviewedAt, cadence: reviewCadence, now: now)
+    }
 
     /// Milestones at a given horizon, ordered.
     func milestones(at h: Horizon) -> [Milestone] {
@@ -85,6 +108,8 @@ final class Milestone {
     var targetDate: Date?
     var sortIndex: Int = 0
     var createdAt: Date = Date()
+    /// EventKit identifier once this milestone is mirrored to the system Calendar.
+    var calendarEventID: String?
 
     var intention: Intention?
 

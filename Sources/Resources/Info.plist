@@ -29,5 +29,7 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>L'Horizon ajoute vos jalons datés à un calendrier « L'Horizon » dédié.</string>
 </dict>
 </plist>

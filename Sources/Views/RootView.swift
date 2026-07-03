@@ -33,6 +33,7 @@ struct RootView: View {
     @State private var selectedID: UUID?
     @State private var workspace: Workspace = .board
     @State private var showingNew = false
+    @State private var showingFocus = false
 
     private var selected: Intention? {
         intentions.first { $0.id == selectedID } ?? intentions.first
@@ -44,7 +45,11 @@ struct RootView: View {
                 .navigationSplitViewColumnWidth(min: 240, ideal: 270, max: 320)
         } detail: {
             Group {
-                if let intention = selected {
+                if showingFocus {
+                    FocusView(onReview: { id in
+                        selectedID = id; workspace = .review; showingFocus = false
+                    })
+                } else if let intention = selected {
                     workspaceView(intention)
                 } else {
                     EmptyStateView(onCreate: { showingNew = true })
@@ -54,9 +59,14 @@ struct RootView: View {
         }
         .toolbar { toolbarContent }
         .sheet(isPresented: $showingNew) {
-            NewIntentionView { newID in selectedID = newID; workspace = .board }
+            NewIntentionView { newID in selectedID = newID; workspace = .board; showingFocus = false }
         }
         .onAppear { if selectedID == nil { selectedID = intentions.first?.id } }
+        .onChange(of: selectedID) { showingFocus = false }
+        .task {
+            await NotificationManager.shared.requestAuthorization()
+            await NotificationManager.shared.rescheduleReviewReminders(intentions, lang: loc.lang)
+        }
         .tint(Theme.dawn)
     }
 
@@ -89,6 +99,7 @@ struct RootView: View {
                 HorizonLines(count: 5, color: Theme.dawn)
                     .frame(height: 26)
                     .opacity(0.7)
+                maintenantButton
             }
             .padding(.horizontal, 14)
             .padding(.top, 8)
@@ -96,9 +107,36 @@ struct RootView: View {
         }
     }
 
+    /// Cross-intention "Maintenant" focus entry, above the intentions list.
+    private var maintenantButton: some View {
+        let dueCount = intentions.filter { $0.isReviewDue() }.count
+        return Button { withAnimation(.easeInOut(duration: 0.18)) { showingFocus = true } } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "target").font(.system(size: 12))
+                Text(loc.t("Maintenant", "Now")).font(Theme.body(13.5))
+                Spacer()
+                if dueCount > 0 {
+                    Text("\(dueCount)")
+                        .font(Theme.mono(10)).foregroundStyle(Theme.nightDeep)
+                        .padding(.horizontal, 6).padding(.vertical, 1)
+                        .background(Capsule().fill(Theme.dawn))
+                }
+            }
+            .padding(.horizontal, 10).padding(.vertical, 7)
+            .background(RoundedRectangle(cornerRadius: 9)
+                .fill(showingFocus ? Theme.dawn.opacity(0.92) : Color.white.opacity(0.06)))
+            .foregroundStyle(showingFocus ? Theme.nightDeep : .white.opacity(0.88))
+        }
+        .buttonStyle(.plain)
+        .padding(.top, 8)
+    }
+
     @ViewBuilder
     private func workspaceView(_ intention: Intention) -> some View {
         VStack(spacing: 0) {
+            if intention.isReviewDue() && workspace != .review {
+                reviewDueBanner(intention)
+            }
             WorkspacePicker(workspace: $workspace)
                 .padding(.horizontal, 22)
                 .padding(.top, 14)
@@ -110,6 +148,23 @@ struct RootView: View {
             case .review:   ReviewView(intention: intention)
             }
         }
+    }
+
+    /// A slim amber banner when the selected intention is due for its review.
+    private func reviewDueBanner(_ intention: Intention) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark.seal.fill").font(.system(size: 12))
+            Text(loc.t("Revue attendue pour cette intention.", "This intention is due for review."))
+                .font(Theme.body(12))
+            Spacer()
+            Button { withAnimation { workspace = .review } } label: {
+                Text(loc.t("Réviser", "Review")).font(Theme.body(12))
+            }
+            .buttonStyle(.borderedProminent).tint(Theme.nightDeep)
+        }
+        .foregroundStyle(Theme.nightDeep)
+        .padding(.horizontal, 22).padding(.vertical, 8)
+        .background(Theme.dawn.opacity(0.92))
     }
 
     @ToolbarContentBuilder
